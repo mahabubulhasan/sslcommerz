@@ -1,5 +1,9 @@
 # SSLCommerz
-[SSLCommerz](https://www.sslcommerz.com) Payment gateway library for Laravel framework
+[SSLCommerz](https://www.sslcommerz.com) Payment gateway library for Laravel framework. Official documentation is [here](https://developer.sslcommerz.com/docs.html).
+
+### SSLCommerz process flow
+
+![alt text](https://developer.sslcommerz.com/assets/images/banner/sslc_process.png "Process flow") 
 
 ## install
 ```
@@ -35,4 +39,17 @@ echo $resp->getGatewayUrl();
 $resp = Client::verifyOrder('180828114058np43AJdzJJOsYzc', true);  //last parameter true is for sandbox
 echo 'status: '.$resp->getStatus();
 echo 'transaction: '.$resp->getTransactionId();
+```
+
+### IPN Notification
+After filling the card information and submission in the sslcommerz window it will send a IPN notificaion to your
+specified IPN url. To grab the notification use the following code. For more details [see here](https://developer.sslcommerz.com/docs.html)
+ 
+```php
+if(ipn_hash_varify(config('sslcommerz.store_password'))){
+    $ipn = new IpnNotification($_POST);
+    $val_id = $ipn->getValId();
+    $transaction_id = $ipn->getTransactionId();
+    $amount = $ipn->getAmount();
+} 
 ```
