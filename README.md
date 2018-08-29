@@ -18,21 +18,22 @@ STORE_PASSWORD=your_store_password
 SUCCESS_URL=http://your-domain.at/success.php
 FAIL_URL=http://your-domain.at/fail.php
 CANCEL_URL=http://your-domain.at/cancel.php
+SANDBOX_MODE=true
 ``` 
 
 ### Initiating a Payment session
 This `initSession` will give you a gateway url. With this url you will be able to continue the payment through sslcommerz.
 ```php
 $customer = new Customer('Mahabubul Hasan', 'mahabub@example.com', '0171xxxxx22');
-$resp = Client::initSession($customer, 29, true); //last parameter true is for sandbox
+$resp = Client::initSession($customer, 29);
 echo $resp->getGatewayUrl();
 ```
 
 ### Request for Validation
-This `verifyOrder` method takes a val_id as parameter which you will get in the IPN request.
+This `verifyOrder` method takes a `val_id` as parameter which you will get in the IPN request.
 
 ```php
-$resp = Client::verifyOrder('180828114058np43AJdzJJOsYzc', true);  //last parameter true is for sandbox
+$resp = Client::verifyOrder('180828114058np43AJdzJJOsYzc');
 echo 'status: '.$resp->getStatus();
 echo 'transaction: '.$resp->getTransactionId();
 ```
@@ -47,7 +48,7 @@ if(ipn_hash_varify(config('sslcommerz.store_password'))){
     $val_id = $ipn->getValId();
     $transaction_id = $ipn->getTransactionId();
     $amount = $ipn->getAmount();
-    $resp = Client::verifyOrder($val_id, true);
+    $resp = Client::verifyOrder($val_id);
 } 
 ```
 
