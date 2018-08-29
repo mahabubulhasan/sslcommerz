@@ -1,7 +1,7 @@
 # SSLCommerz
 [SSLCommerz](https://www.sslcommerz.com) Payment gateway library for Laravel framework
 
-##install
+## install
 ```
 composer require uzzal/sslcommerz
 ```
@@ -20,7 +20,7 @@ FAIL_URL=http://your-domain.at/fail.php
 CANCEL_URL=http://your-domain.at/cancel.php
 ``` 
 
-###Initiating a Payment session
+### Initiating a Payment session
 This `initSession` will give you a gateway url. With this url you will be able to continue the payment through sslcommerz.
 ```php
 $customer = new Customer('Mahabubul Hasan', 'mahabub@example.com', '0171xxxxx22');
@@ -28,7 +28,7 @@ $resp = Client::initSession($customer, 29, true); //last parameter true is for s
 echo $resp->getGatewayUrl();
 ```
 
-###Order verification
+### Order verification
 `verifyOrder` method takes a val_id as parameter which you will get in the IPN request.
 
 ```php
