@@ -13,12 +13,11 @@ class Client
     /**
      * @param Customer $customer
      * @param $amount
-     * @param bool $isSandbox
      * @return SessionResponse
      * @throws Exceptions\RequestParameterMissingException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function initSession(Customer $customer, $amount, $isSandbox=true){
+    public static function initSession(Customer $customer, $amount){
         $data[SessionRequest::STORE_ID] = config('sslcommerz.store_id');
         $data[SessionRequest::STORE_PASSWORD] = config('sslcommerz.store_password');
         $data[SessionRequest::TOTAL_AMOUNT] = $amount;
@@ -33,22 +32,21 @@ class Client
         $data[SessionRequest::CUSTOMER_PHONE] = $customer->getPhone();
 
         $request = new SessionRequest($data);
-        $resp = $request->send($isSandbox);
+        $resp = $request->send(config('sslcommerz.sandbox_mode'));
         $resp->setTransactionId($data[SessionRequest::TRANSACTION_ID]);//important
         return $resp;
     }
 
     /**
      * @param $valId
-     * @param $isSandbox
      * @return OrderValidationResponse
      */
-    public static function verifyOrder($valId, $isSandbox=true){
+    public static function verifyOrder($valId){
         $data[OrderValidationRequest::VAL_ID] = $valId;
         $data[OrderValidationRequest::STORE_ID] = config('sslcommerz.store_id');
         $data[OrderValidationRequest::STORE_PASSWORD] = config('sslcommerz.store_password');
 
         $request = new OrderValidationRequest($data);
-        return $request->send($isSandbox);
+        return $request->send(config('sslcommerz.sandbox_mode'));
     }
 }
