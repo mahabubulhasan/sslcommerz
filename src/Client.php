@@ -33,7 +33,9 @@ class Client
         $data[SessionRequest::CUSTOMER_PHONE] = $customer->getPhone();
 
         $request = new SessionRequest($data);
-        return $request->send($isSandbox);
+        $resp = $request->send($isSandbox);
+        $resp->setTransactionId($data[SessionRequest::TRANSACTION_ID]);//important
+        return $resp;
     }
 
     /**

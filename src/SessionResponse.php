@@ -20,10 +20,19 @@ class SessionResponse
     const STORE_LOGO_URL = 'storeLogo';
     const GATEWAY_DESCRIPTION = 'desc';
 
+    private $_trans_id;
     private $_json;
     public function __construct($content)
     {
         $this->_json = json_decode($content, true);
+    }
+
+    public function setTransactionId($transaction_id){
+        $this->_trans_id = $transaction_id;
+    }
+
+    public function getTransactionId(){
+        return $this->_trans_id;
     }
 
     function getStatus()

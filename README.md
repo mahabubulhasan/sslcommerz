@@ -1,10 +1,6 @@
 # SSLCommerz
 [SSLCommerz](https://www.sslcommerz.com) Payment gateway library for Laravel framework. Official documentation is [here](https://developer.sslcommerz.com/docs.html).
 
-### SSLCommerz process flow
-
-![alt text](https://developer.sslcommerz.com/assets/images/banner/sslc_process.png "Process flow") 
-
 ## install
 ```
 composer require uzzal/sslcommerz
@@ -54,3 +50,7 @@ if(ipn_hash_varify(config('sslcommerz.store_password'))){
     $resp = Client::verifyOrder($val_id, true);
 } 
 ```
+
+### SSLCommerz process flow
+
+![alt text](https://developer.sslcommerz.com/assets/images/banner/sslc_process.png "Process flow") 
