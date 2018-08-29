@@ -18,7 +18,7 @@ class Client
      * @throws Exceptions\RequestParameterMissingException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function initSession(Customer $customer, $amount, $isSandbox=false){
+    public static function initSession(Customer $customer, $amount, $isSandbox=true){
         $data[SessionRequest::STORE_ID] = config('sslcommerz.store_id');
         $data[SessionRequest::STORE_PASSWORD] = config('sslcommerz.store_password');
         $data[SessionRequest::TOTAL_AMOUNT] = $amount;
@@ -41,7 +41,7 @@ class Client
      * @param $isSandbox
      * @return OrderValidationResponse
      */
-    public static function verifyOrder($valId, $isSandbox=false){
+    public static function verifyOrder($valId, $isSandbox=true){
         $data[OrderValidationRequest::VAL_ID] = $valId;
         $data[OrderValidationRequest::STORE_ID] = config('sslcommerz.store_id');
         $data[OrderValidationRequest::STORE_PASSWORD] = config('sslcommerz.store_password');

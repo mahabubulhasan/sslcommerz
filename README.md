@@ -32,8 +32,8 @@ $resp = Client::initSession($customer, 29, true); //last parameter true is for s
 echo $resp->getGatewayUrl();
 ```
 
-### Order verification
-`verifyOrder` method takes a val_id as parameter which you will get in the IPN request.
+### Request for Validation
+This `verifyOrder` method takes a val_id as parameter which you will get in the IPN request.
 
 ```php
 $resp = Client::verifyOrder('180828114058np43AJdzJJOsYzc', true);  //last parameter true is for sandbox
@@ -41,7 +41,7 @@ echo 'status: '.$resp->getStatus();
 echo 'transaction: '.$resp->getTransactionId();
 ```
 
-### IPN Notification
+### IPN Listener (Step 4,5)
 After filling the card information and submission in the sslcommerz window it will send a IPN notificaion to your
 specified IPN url. To grab the notification use the following code. For more details [see here](https://developer.sslcommerz.com/docs.html)
  
@@ -51,5 +51,6 @@ if(ipn_hash_varify(config('sslcommerz.store_password'))){
     $val_id = $ipn->getValId();
     $transaction_id = $ipn->getTransactionId();
     $amount = $ipn->getAmount();
+    $resp = Client::verifyOrder($val_id, true);
 } 
 ```
