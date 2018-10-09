@@ -25,7 +25,14 @@ SANDBOX_MODE=true
 This `initSession` will give you a gateway url. With this url you will be able to continue the payment through sslcommerz.
 ```php
 $customer = new Customer('Mahabubul Hasan', 'mahabub@example.com', '0171xxxxx22');
-$resp = Client::initSession($customer, 29);
+$resp = Client::initSession($customer, 29); //29 is the amount
+echo $resp->getGatewayUrl();
+```
+or with configuration
+```php
+$customer = new Customer('Mahabubul Hasan', 'mahabub@example.com', '0171xxxxx22');
+$config[SessionRequest::EMI] = '0';
+$resp = Client::initSession($customer, 29, $config);
 echo $resp->getGatewayUrl();
 ```
 

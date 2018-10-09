@@ -13,11 +13,12 @@ class Client
     /**
      * @param Customer $customer
      * @param $amount
+     * @param array $config
      * @return SessionResponse
      * @throws Exceptions\RequestParameterMissingException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public static function initSession(Customer $customer, $amount){
+    public static function initSession(Customer $customer, $amount, $config=[]){
         $data[SessionRequest::STORE_ID] = config('sslcommerz.store_id');
         $data[SessionRequest::STORE_PASSWORD] = config('sslcommerz.store_password');
         $data[SessionRequest::TOTAL_AMOUNT] = $amount;
@@ -26,12 +27,12 @@ class Client
         $data[SessionRequest::SUCCESS_URL] = config('sslcommerz.success_url');
         $data[SessionRequest::FAIL_URL] = config('sslcommerz.fail_url');
         $data[SessionRequest::CANCEL_URL] = config('sslcommerz.cancel_url');
-        $data[SessionRequest::EMI] = '1';
+        $data[SessionRequest::EMI] = '0';
         $data[SessionRequest::CUSTOMER_NAME] = $customer->getName();
         $data[SessionRequest::CUSTOMER_EMAIL] = $customer->getEmail();
         $data[SessionRequest::CUSTOMER_PHONE] = $customer->getPhone();
 
-        $request = new SessionRequest($data);
+        $request = new SessionRequest(array_merge($data, $config));
         $resp = $request->send(config('sslcommerz.sandbox_mode'));
         $resp->setTransactionId($data[SessionRequest::TRANSACTION_ID]);//important
         return $resp;
