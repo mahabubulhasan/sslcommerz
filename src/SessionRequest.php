@@ -44,7 +44,7 @@ class SessionRequest implements SessionRequestInterface
         if($isSandbox){
             return 'https://sandbox.sslcommerz.com/gwprocess/v3/api.php';
         }else{
-            return 'https://sandbox.sslcommerz.com/gwprocess/v3/api.php';
+            return 'https://securepay.sslcommerz.com/gwprocess/v3/api.php';
         }
     }
 
